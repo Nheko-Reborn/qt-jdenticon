@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "colorutils.h"
 
 namespace rendering {

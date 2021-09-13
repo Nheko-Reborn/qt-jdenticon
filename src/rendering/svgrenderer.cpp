@@ -40,7 +40,7 @@ SvgRenderer::beginShape(const QColor &color)
 void
 SvgRenderer::save(QTextStream &stream, bool fragment)
 {
-    stream << toSvg(fragment) << endl;
+    stream << toSvg(fragment) << Qt::endl;
 }
 
 QString

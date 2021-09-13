@@ -1,13 +1,16 @@
 #include "shapedefinitions.h"
-namespace shapes {
 
-void (*ShapeDefinitions::outerShapes_[4])(rendering::Renderer &, int, int) = {
+#include <array>
+
+namespace shapes {
+static QList<void (*)(rendering::Renderer &, int, int)> outerShapes_{
   &ShapeDefinitions::outerOne,
   &ShapeDefinitions::outerTwo,
   &ShapeDefinitions::outerThree,
-  &ShapeDefinitions::outerFour};
+  &ShapeDefinitions::outerFour,
+};
 
-void (*ShapeDefinitions::centerShapes_[14])(rendering::Renderer &, int, int) = {
+static QList<void (*)(rendering::Renderer &, int, int)> centerShapes_{
   &ShapeDefinitions::centerOne,
   &ShapeDefinitions::centerTwo,
   &ShapeDefinitions::centerThree,
@@ -21,21 +24,18 @@ void (*ShapeDefinitions::centerShapes_[14])(rendering::Renderer &, int, int) = {
   &ShapeDefinitions::centerEleven,
   &ShapeDefinitions::centerTwelve,
   &ShapeDefinitions::centerThirteen,
-  &ShapeDefinitions::centerFourteen};
+  &ShapeDefinitions::centerFourteen,
+};
 
 QList<void (*)(rendering::Renderer &, int, int)>
 ShapeDefinitions::CenterShapes()
 {
-    return QList<void (*)(rendering::Renderer &, int, int)>::fromStdList(
-      std::list<void (*)(rendering::Renderer &, int, int)>(
-        centerShapes_, centerShapes_ + sizeof(centerShapes_) / sizeof(void *)));
+    return outerShapes_;
 }
 
 QList<void (*)(rendering::Renderer &, int, int)>
 ShapeDefinitions::OuterShapes()
 {
-    return QList<void (*)(rendering::Renderer &, int, int)>::fromStdList(
-      std::list<void (*)(rendering::Renderer &, int, int)>(
-        outerShapes_, outerShapes_ + sizeof(outerShapes_) / sizeof(void *)));
+    return centerShapes_;
 }
 }

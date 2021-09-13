@@ -5,7 +5,6 @@
 
 class QTIDENTICONSHARED_EXPORT QtIdenticon
 {
-
 public:
     QtIdenticon();
 };

@@ -1,21 +1,22 @@
 #ifndef IDENTICONSTYLE_H
 #define IDENTICONSTYLE_H
 
-#include <QList>
 #include <QColor>
+#include <QList>
 
 class IdenticonStyle
 {
 private:
     QList<qreal> hues_;
-    QColor backColor_ = QColor(0,0,0,0);
-    qreal padding_ = 0.08;
-    qreal colorSaturation_ = 0.5;
+    QColor backColor_          = QColor(0, 0, 0, 0);
+    qreal padding_             = 0.08;
+    qreal colorSaturation_     = 0.5;
     qreal grayscaleSaturation_ = 0.0;
-    qreal minColorLightness_ = 0.4;
-    qreal maxColorLightness_ = 0.8;
-    qreal minGrayLightness_ = 0.3;
-    qreal maxGrayLightness_ = 0.9;
+    qreal minColorLightness_   = 0.4;
+    qreal maxColorLightness_   = 0.8;
+    qreal minGrayLightness_    = 0.3;
+    qreal maxGrayLightness_    = 0.9;
+
 public:
     IdenticonStyle();
     IdenticonStyle(IdenticonStyle &other);

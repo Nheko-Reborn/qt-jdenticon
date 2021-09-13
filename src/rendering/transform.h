@@ -5,7 +5,8 @@
 
 namespace rendering {
 
-class Transform {
+class Transform
+{
 private:
     int x_;
     int y_;
@@ -15,9 +16,7 @@ private:
 public:
     Transform(int x, int y, int size, int rotation);
 
-    static Transform empty() {
-        return Transform(0,0,0,0);
-    }
+    static Transform empty() { return Transform(0, 0, 0, 0); }
     int x() { return x_; }
     int y() { return y_; }
     int size() { return size_; }

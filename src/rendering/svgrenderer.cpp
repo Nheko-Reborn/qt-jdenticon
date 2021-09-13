@@ -4,7 +4,7 @@ namespace rendering {
 
 SvgRenderer::SvgRenderer(int width, int height)
 {
-    width_ = width;
+    width_  = width;
     height_ = height;
 }
 
@@ -46,24 +46,25 @@ SvgRenderer::save(QTextStream &stream, bool fragment)
 QString
 SvgRenderer::toSvg(bool fragment)
 {
-    auto svg = QList<QString>();
-    auto widthAsString = QString::number(width_);
+    auto svg            = QList<QString>();
+    auto widthAsString  = QString::number(width_);
     auto heightAsString = QString::number(height_);
 
     if (!fragment) {
-        svg.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" +
-                   widthAsString + "\" height=\"" + heightAsString + "\" viewBox=\"0 0 " +
-                   widthAsString + " " + heightAsString + "\" preserveAspectRatio=\"xMidYMid meet\">");
+        svg.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + widthAsString +
+                   "\" height=\"" + heightAsString + "\" viewBox=\"0 0 " + widthAsString + " " +
+                   heightAsString + "\" preserveAspectRatio=\"xMidYMid meet\">");
     }
 
     if (backColor_.alpha() > 0) {
         svg.append("<rect fill=\"" + backColor_.name() + "\" fill-opacity=\"" +
-            QString::number(backColor_.alphaF()) +
-            "\" x=\"0\" y=\"0\" width=\"" + widthAsString + "\" height=\"" + heightAsString + "\"/>");
+                   QString::number(backColor_.alphaF()) + "\" x=\"0\" y=\"0\" width=\"" +
+                   widthAsString + "\" height=\"" + heightAsString + "\"/>");
     }
 
     for (auto pair : pathsByColor_.keys()) {
-        svg.append("<path fill=\"" + pair + "\" d=\"" + pathsByColor_.value(pair)->toString() + "\"/>");
+        svg.append("<path fill=\"" + pair + "\" d=\"" + pathsByColor_.value(pair)->toString() +
+                   "\"/>");
     }
 
     if (!fragment) {
@@ -72,7 +73,5 @@ SvgRenderer::toSvg(bool fragment)
 
     return QStringList(svg).join("");
 }
-
-
 
 } // namespace rendering

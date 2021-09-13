@@ -2,11 +2,14 @@
 
 namespace shapes {
 
-Shape::Shape(void (*definition)(rendering::Renderer&, int cell, int index), QColor &color, QList<QPoint> &positions, int startRotationIndex)
+Shape::Shape(void (*definition)(rendering::Renderer &, int cell, int index),
+             QColor &color,
+             QList<QPoint> &positions,
+             int startRotationIndex)
 {
-    definition_ = definition;
-    shapeColor_ = color;
-    positions_ = positions;
+    definition_         = definition;
+    shapeColor_         = color;
+    positions_          = positions;
     startRotationIndex_ = startRotationIndex;
 }
 

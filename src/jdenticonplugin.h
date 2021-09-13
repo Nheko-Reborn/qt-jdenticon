@@ -3,9 +3,12 @@
 
 #include <QObject>
 #include <QtPlugin>
+
 #include "jdenticoninterface.h"
 
-class JdenticonPlugin : public QObject, JdenticonInterface
+class JdenticonPlugin
+  : public QObject
+  , JdenticonInterface
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "redsky17.Qt.JdenticonInterface")

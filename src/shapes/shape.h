@@ -3,8 +3,9 @@
 
 #include <QColor>
 #include <QList>
-#include "shapeposition.h"
+
 #include "../rendering/renderer.h"
+#include "shapeposition.h"
 
 namespace shapes {
 
@@ -17,12 +18,14 @@ private:
     void (*definition_)(rendering::Renderer &renderer, int cell, int index);
 
 public:
-    Shape(void (*definition)(rendering::Renderer &renderer, int cell, int index), QColor &color, QList<QPoint> &positions, int startRotationIndex);
+    Shape(void (*definition)(rendering::Renderer &renderer, int cell, int index),
+          QColor &color,
+          QList<QPoint> &positions,
+          int startRotationIndex);
     QColor getShapeColor();
     QList<QPoint> getPositions();
     int getStartRotationIndex();
-    void (*getDefinition())(rendering::Renderer&, int, int) { return definition_; }
-
+    void (*getDefinition())(rendering::Renderer &, int, int) { return definition_; }
 };
 
 } // namespace shapes

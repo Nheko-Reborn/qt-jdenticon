@@ -2,8 +2,9 @@
 #define COLORTHEME_H
 
 #include <QColor>
-#include "colorutils.h"
+
 #include "../identiconstyle.h"
+#include "colorutils.h"
 
 namespace rendering {
 
@@ -16,10 +17,11 @@ private:
     QColor midColor_;
     QColor lightGray_;
     QColor lightColor_;
+
 public:
     ColorTheme(qreal hue, IdenticonStyle &style);
     int count() { return 5; }
-    QColor & operator[](int index);
+    QColor &operator[](int index);
 };
 
 } // namespace rendering

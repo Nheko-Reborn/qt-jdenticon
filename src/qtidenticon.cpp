@@ -1,14 +1,15 @@
 #include <QCoreApplication>
-#include <QtGlobal>
 #include <QtDebug>
+#include <QtGlobal>
+
 #include "identicon.h"
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    QList<QString> hashes =
-    {
-        "@red_sky:ocean.joedonofry.com",
+    QList<QString> hashes = {
+      "@red_sky:ocean.joedonofry.com",
     };
     for (QString hash : hashes) {
         QByteArray hashArr = QByteArray::fromStdString(hash.toStdString());
@@ -16,6 +17,6 @@ int main(int argc, char *argv[])
         qInfo() << hash;
         qInfo() << test.generateSvg(test, false);
     }
-    return  0;
-    //return a.exec();
+    return 0;
+    // return a.exec();
 }

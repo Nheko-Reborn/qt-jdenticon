@@ -2,14 +2,17 @@
 
 namespace shapes {
 
-ShapeCategory::ShapeCategory(int colorIndex, int shapeIndex, int rotationIndex, QList<QPoint> &positions, QList<void(*)(rendering::Renderer&, int, int)>
- &definitions)
+ShapeCategory::ShapeCategory(int colorIndex,
+                             int shapeIndex,
+                             int rotationIndex,
+                             QList<QPoint> &positions,
+                             QList<void (*)(rendering::Renderer &, int, int)> &definitions)
 {
-    colorIndex_ = colorIndex;
-    shapeIndex_ = shapeIndex;
+    colorIndex_    = colorIndex;
+    shapeIndex_    = shapeIndex;
     rotationIndex_ = rotationIndex;
-    positions_ = positions;
-    definitions_ = definitions;
+    positions_     = positions;
+    definitions_   = definitions;
 }
 
 int
@@ -36,7 +39,7 @@ ShapeCategory::getPositions()
     return positions_;
 }
 
-QList<void(*)(rendering::Renderer&, int, int)>
+QList<void (*)(rendering::Renderer &, int, int)>
 ShapeCategory::getDefinitions()
 {
     return definitions_;

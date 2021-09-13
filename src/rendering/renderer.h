@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QPointF>
 #include <QtDebug>
+
 #include <algorithm>
 
 #include "transform.h"
@@ -46,11 +47,15 @@ private:
 
         addPolygonNoTransform(transformedPoints);
     }
+
 protected:
-    virtual void addCircleNoTransform(QPointF &location, qreal diameter, bool counterClockwise = false) = 0;
-    virtual void addPolygonNoTransform(QList<QPointF> &points) = 0;
+    virtual void addCircleNoTransform(QPointF &location,
+                                      qreal diameter,
+                                      bool counterClockwise = false) = 0;
+    virtual void addPolygonNoTransform(QList<QPointF> &points)       = 0;
+
 public:
-    Renderer() = default;
+    Renderer()          = default;
     virtual ~Renderer() = default;
     Transform getTransform() { return transform_; }
     void setTransform(Transform &value) { transform_ = value; }
@@ -66,24 +71,23 @@ public:
     }
     void addRectangle(qreal x, qreal y, qreal width, qreal height, bool invert = false)
     {
-        QList<QPointF> points =
-        {
-            QPointF(x, y),
-            QPointF(x + width, y),
-            QPointF(x + width, y + height),
-            QPointF(x, y + height)
-        };
-        addPolygonCore(points,invert);
+        QList<QPointF> points = {QPointF(x, y),
+                                 QPointF(x + width, y),
+                                 QPointF(x + width, y + height),
+                                 QPointF(x, y + height)};
+        addPolygonCore(points, invert);
     }
-    void addTriangle(qreal x, qreal y, qreal width, qreal height, TriangleDirection direction, bool invert = false)
+    void addTriangle(qreal x,
+                     qreal y,
+                     qreal width,
+                     qreal height,
+                     TriangleDirection direction,
+                     bool invert = false)
     {
-        QList<QPointF> points =
-        {
-            QPointF(x + width, y),
-            QPointF(x + width, y + height),
-            QPointF(x, y + height),
-            QPointF(x, y)
-        };
+        QList<QPointF> points = {QPointF(x + width, y),
+                                 QPointF(x + width, y + height),
+                                 QPointF(x, y + height),
+                                 QPointF(x, y)};
 
         points.removeAt(static_cast<int>(direction));
 
@@ -91,17 +95,14 @@ public:
     }
     void addRhombus(qreal x, qreal y, qreal width, qreal height, bool invert = false)
     {
-        QList<QPointF> points =
-        {
-            QPointF(x + width / 2, y),
-            QPointF(x + width, y + height / 2),
-            QPointF(x + width / 2, y + height),
-            QPointF(x, y + height / 2)
-        };
-        addPolygonCore(points,invert);
+        QList<QPointF> points = {QPointF(x + width / 2, y),
+                                 QPointF(x + width, y + height / 2),
+                                 QPointF(x + width / 2, y + height),
+                                 QPointF(x, y + height / 2)};
+        addPolygonCore(points, invert);
     }
     virtual void setBackgroundColor(const QColor &color) = 0;
-    virtual void beginShape(const QColor &color) = 0;
+    virtual void beginShape(const QColor &color)         = 0;
 };
 
 } // namespace rendering

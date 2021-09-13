@@ -2,8 +2,8 @@
 #define SVGPATH_H
 
 #include <QList>
-#include <QString>
 #include <QPointF>
+#include <QString>
 
 namespace rendering {
 
@@ -11,6 +11,7 @@ class SvgPath
 {
 private:
     QList<QString> dataString_;
+
 public:
     SvgPath();
     void addCircle(QPointF &location, qreal diameter, bool counterClockwise);

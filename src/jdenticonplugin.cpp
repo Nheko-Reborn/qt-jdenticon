@@ -1,4 +1,5 @@
 #include "jdenticonplugin.h"
+
 #include "identicon.h"
 
 QString

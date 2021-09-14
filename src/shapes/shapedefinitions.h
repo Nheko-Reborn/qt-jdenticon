@@ -202,9 +202,6 @@ public:
             renderer.addCircle(m, m, s);
         }
     }
-
-    static void (*outerShapes_[4])(rendering::Renderer &, int, int);
-    static void (*centerShapes_[14])(rendering::Renderer &, int, int);
 };
 
 } // namespace shapes

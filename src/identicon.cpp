@@ -1,7 +1,7 @@
 #include "identicon.h"
 
 IdenticonStyle Identicon::defaultStyle_ = {};
-Identicon::Identicon(QByteArray &hash, int size)
+Identicon::Identicon(QString &hash, int size)
 {
     size_ = size;
     hash_ = hash;
@@ -10,16 +10,9 @@ Identicon::Identicon(QByteArray &hash, int size)
 Identicon
 Identicon::fromHash(QByteArray &hash, int size)
 {
-    Identicon fromHash(hash, size);
+    QString str = QString(hash);
+    Identicon fromHash(str, size);
     return fromHash;
-}
-
-Identicon
-Identicon::fromHash(QString &hash, int size)
-{
-    QByteArray hashArr = QByteArray::fromStdString(hash.toStdString());
-    Identicon identicon(hashArr, size);
-    return identicon;
 }
 
 QString

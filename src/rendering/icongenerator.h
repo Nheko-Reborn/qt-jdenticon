@@ -1,6 +1,7 @@
 #ifndef ICONGENERATOR_H
 #define ICONGENERATOR_H
 
+#include <QString>
 #include <QList>
 #include <QtDebug>
 
@@ -38,12 +39,12 @@ private:
 
 protected:
     QList<shapes::ShapeCategory> getCategories();
-    virtual QList<shapes::Shape> getShapes(ColorTheme &theme, QByteArray &hash);
+    virtual QList<shapes::Shape> getShapes(ColorTheme &theme, QString &hash);
     virtual void RenderBackground(Renderer &renderer,
                                   Rectangle rect,
                                   IdenticonStyle &style,
                                   ColorTheme &colorTheme,
-                                  QByteArray &hash)
+                                  QString &hash)
     {
         Q_UNUSED(rect);
         Q_UNUSED(style);
@@ -66,7 +67,7 @@ protected:
                                   Rectangle &rect,
                                   IdenticonStyle &style,
                                   ColorTheme &colorTheme,
-                                  QByteArray &hash)
+                                  QString &hash)
     {
         Q_UNUSED(style);
         // Ensure rect is quadratic and a multiple of the cell count
@@ -97,9 +98,10 @@ protected:
             // renderer.endShape();
         }
     }
-    static int hashQString(const QString &input)
+
+    static uint32_t hashQString(const QString &input)
     {
-        auto hash = 0;
+        uint32_t hash = 0;
 
         for (int i = 0; i < input.length(); i++) {
             hash = input.at(i).digitValue() + ((hash << 5) - hash);
@@ -107,34 +109,27 @@ protected:
 
         return hash;
     }
-    static qreal getHue(QByteArray &hash)
 
+    static qreal getHue(const QString &input)
     {
         // Create a color for the input
-        auto hashInt = hashQString(hash);
+        auto hash = hashQString(input);
         // create a hue value based on the hash of the input.
-        auto userHue = qAbs(hashInt % 360);
+        auto userHue = hash % 360;
         return userHue / 360.0;
     }
 
-    static char getOctet(QByteArray &arr, const int index)
+    static char getOctet(QString &arr, const int index)
     {
-        auto byteIndex = index / 2;
-        auto byteValue = arr.at(byteIndex);
-
-        if (byteIndex * 2 == index) {
-            byteValue = byteValue >> 4;
-        } else {
-            byteValue = byteValue & 0xf;
-        }
-
-        return byteValue;
+        char at =  arr.at(index).toLatin1();
+        char decval = (at >= 'A') ? (at - 'A' + 10) : (at - '0');
+        return decval;
     }
 
 public:
     IconGenerator();
     virtual int cellCount() { return 4; }
-    void generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QByteArray &hash);
+    void generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QString &hash);
     virtual ~IconGenerator() = default;
 };
 

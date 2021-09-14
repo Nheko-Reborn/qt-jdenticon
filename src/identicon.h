@@ -11,14 +11,14 @@
 class Identicon
 {
 private:
-    QByteArray hash_;
+    QString hash_;
     int size_;
     rendering::IconGenerator iconGenerator_;
     IdenticonStyle style_;
     static IdenticonStyle defaultStyle_;
 
 public:
-    Identicon(QByteArray &hash, int size);
+    Identicon(QString &hash, int size);
     int size() { return size_; }
     rendering::Rectangle getIconBounds();
     static Identicon fromHash(QByteArray &hash, int size);

@@ -1,5 +1,6 @@
 #include "icongenerator.h"
 
+#include <QCryptographicHash>
 namespace rendering {
 
 QList<QPoint> IconGenerator::shapeOne_({QPoint(1, 0),
@@ -34,7 +35,7 @@ IconGenerator::getCategories()
 }
 
 QList<shapes::Shape>
-IconGenerator::getShapes(ColorTheme &theme, QByteArray &hash)
+IconGenerator::getShapes(ColorTheme &theme, QString &hash)
 {
     QList<shapes::Shape> shapes;
     QList<int> usedColorThemeIndexes;
@@ -63,6 +64,7 @@ IconGenerator::getShapes(ColorTheme &theme, QByteArray &hash)
         auto definitionSize = category.getDefinitions().size();
         qDebug() << "definitionSize " << definitionSize;
         auto shape             = category.getDefinitions()[octet % definitionSize];
+        qDebug() << "Shape # " << (octet % definitionSize) ;
         auto positions         = category.getPositions();
         shapes::Shape newShape = {shape, theme[colorThemeIndex], positions, startRotationIndex};
         shapes.append(newShape);
@@ -74,12 +76,13 @@ void
 IconGenerator::generate(Renderer &renderer,
                         Rectangle &rect,
                         IdenticonStyle &style,
-                        QByteArray &hash)
+                        QString &input)
 {
-    auto hue = getHue(hash);
+    auto hue = getHue(input);
 
     qDebug() << "hue" << hue;
     auto colorTheme = ColorTheme(hue, style);
+    QString hash = QString(QCryptographicHash::hash(input.toUtf8(),QCryptographicHash::Sha1).toHex());
 
     RenderBackground(renderer, rect, style, colorTheme, hash);
     RenderForeground(renderer, rect, style, colorTheme, hash);

@@ -3,11 +3,11 @@
 ######################################################################
 
 TEMPLATE = lib
-CONFIG   += plugin
+CONFIG += plugin
 TARGET = qtjdenticon
 INCLUDEPATH = includes
 INCLUDEPATH += .
-DESTDIR  = plugins
+VERSION = 0.1.0
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
@@ -41,8 +41,8 @@ HEADERS += src/identicon.h \
            src/shapes/shapecategory.h \
            src/shapes/shapedefinitions.h \
            src/shapes/shapeposition.h \
-    src/jdenticonplugin.h \
-    includes/jdenticoninterface.h
+           src/jdenticonplugin.h \
+           includes/jdenticoninterface.h
 SOURCES += src/identicon.cpp \
            src/identiconstyle.cpp \
            src/qtidenticon.cpp \
@@ -57,8 +57,8 @@ SOURCES += src/identicon.cpp \
            src/shapes/shapecategory.cpp \
            src/shapes/shapedefinitions.cpp \
            src/shapes/shapeposition.cpp \
-    src/jdenticonplugin.cpp
+           src/jdenticonplugin.cpp
 
 # install
-target.path = $$[QT_INSTALL_EXAMPLES]/widgets/tools/jdenticon/plugins
+target.path = $$[QT_INSTALL_PLUGINS]
 INSTALLS += target

@@ -1,5 +1,7 @@
 #include "colorutils.h"
 
+#include <stdexcept>
+
 namespace rendering {
 
 QList<qreal> ColorUtils::lightnessCompensation_ = {0.55, 0.5, 0.5, 0.46, 0.6, 0.55, 0.55};

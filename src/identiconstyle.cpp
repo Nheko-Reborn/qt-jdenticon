@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "identiconstyle.h"
 
 #include <stdexcept>

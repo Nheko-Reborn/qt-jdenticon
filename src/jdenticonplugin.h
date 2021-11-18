@@ -11,7 +11,7 @@ class JdenticonPlugin
   , JdenticonInterface
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "redsky17.Qt.JdenticonInterface")
+    Q_PLUGIN_METADATA(IID "im.nheko.JdenticonInterface")
     Q_INTERFACES(JdenticonInterface)
 
 public:

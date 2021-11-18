@@ -2,6 +2,8 @@
 
 #include "colortheme.h"
 
+#include <stdexcept>
+
 namespace rendering {
 
 ColorTheme::ColorTheme(qreal hue, IdenticonStyle &style)

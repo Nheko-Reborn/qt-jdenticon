@@ -2,6 +2,8 @@
 
 #include "identiconstyle.h"
 
+#include <stdexcept>
+
 IdenticonStyle::IdenticonStyle() {}
 
 IdenticonStyle::IdenticonStyle(IdenticonStyle &other)

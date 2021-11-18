@@ -13,7 +13,7 @@ main(int argc, char *argv[])
     };
     for (QString hash : hashes) {
         QByteArray hashArr = QByteArray::fromStdString(hash.toStdString());
-        Identicon test(hashArr, 256);
+        Identicon test(hash, 256);
         qInfo() << hash;
         qInfo() << test.generateSvg(test, false);
     }

@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "colortheme.h"
 
 #include <stdexcept>

@@ -19,8 +19,8 @@ private:
 
 public:
     ColorTheme(qreal hue);
-    int count() { return 5; }
-    QColor &operator[](int index);
+    int count() const { return 5; }
+    QColor operator[](int index) const;
 };
 
 } // namespace rendering

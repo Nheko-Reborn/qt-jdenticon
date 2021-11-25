@@ -17,7 +17,7 @@ private:
     IdenticonStyle style_;
 
 public:
-    Identicon(QString &hash, int size);
+    Identicon(const QString &hash, int size);
     int size() { return size_; }
     rendering::Rectangle getIconBounds();
     static QString generateSvg(Identicon &identicon, bool fragment);

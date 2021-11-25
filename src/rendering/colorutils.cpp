@@ -1,5 +1,3 @@
-#include <stdexcept>
-
 #include "colorutils.h"
 
 #include <stdexcept>

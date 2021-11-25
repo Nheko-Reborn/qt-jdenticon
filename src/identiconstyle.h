@@ -6,7 +6,7 @@
 class IdenticonStyle
 {
 public:
-    static QColor backCol() { return QColor(0,0,0,0); }
+    static QColor backCol() { return QColor(0, 0, 0, 0); }
     static qreal padding() { return 0.08; }
     static qreal colorSaturation() { return 0.5; }
     static qreal grayscaleSaturation() { return 0.0; }

@@ -30,11 +30,8 @@ private:
 
 protected:
     QList<shapes::ShapeCategory> getCategories();
-    QList<shapes::Shape> getShapes(ColorTheme &theme, QString &hash);
-    void RenderBackground(Renderer &renderer)
-    {
-        renderer.setBackgroundColor(QColor(0,0,0,0));
-    }
+    QList<shapes::Shape> getShapes(const ColorTheme &theme, const QByteArray &hash);
+    void RenderBackground(Renderer &renderer) { renderer.setBackgroundColor(QColor(0, 0, 0, 0)); }
     Rectangle normalizeRectangle(Rectangle &rect)
     {
         auto size = qMin(rect.width(), rect.height());
@@ -47,8 +44,8 @@ protected:
     }
     void RenderForeground(Renderer &renderer,
                           Rectangle &rect,
-                          ColorTheme &colorTheme,
-                          QString &hash)
+                          const ColorTheme &colorTheme,
+                          const QByteArray &hash)
     {
         // Ensure rect is quadratic and a multiple of the cell count
         auto normalizedRect = normalizeRectangle(rect);
@@ -79,12 +76,11 @@ protected:
         }
     }
 
-    static uint32_t hashQString(const QString &input);
-
-    static qreal getHue(const QString &input)
+    static qreal getHue(const QByteArray &input)
     {
         // Create a color for the input
-        auto hash = hashQString(input);
+        uint32_t hash =
+          (input.at(0) << 24) ^ (input.at(1) << 16) ^ (input.at(2) << 8) ^ input.at(3);
         // create a hue value based on the hash of the input.
         // Adapted to make Nico blue
         auto userHue = static_cast<double>(hash - static_cast<uint32_t>(0x60000000)) /
@@ -92,11 +88,14 @@ protected:
         return userHue;
     }
 
-    static char getOctet(QString &arr, const int index)
+    static uint8_t getOctet(const QByteArray &arr, const int index)
     {
-        char at     = arr.at(index).toLatin1();
-        char decval = (at >= 'A') ? (at - 'A' + 10) : (at - '0');
-        return decval;
+        uint8_t byte_ = arr.at(index / 2);
+        if (index % 2 == 0)
+            byte_ &= 0x0f;
+        else
+            byte_ >>= 4;
+        return byte_;
     }
 
 public:

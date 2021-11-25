@@ -1,10 +1,9 @@
 #include "identicon.h"
 
-Identicon::Identicon(QString &hash, int size)
-{
-    size_ = size;
-    hash_ = hash;
-}
+Identicon::Identicon(const QString &hash, int size)
+  : hash_(hash)
+  , size_(size)
+{}
 
 QString
 Identicon::generateSvg(Identicon &icon, bool fragment)

@@ -1,28 +1,29 @@
-#include <stdexcept>
-
 #include "colortheme.h"
-#include "../identiconstyle.h"
 
 #include <stdexcept>
+
+#include "../identiconstyle.h"
 
 namespace rendering {
 
 ColorTheme::ColorTheme(qreal hue)
 {
-    darkGray_ =
-      ColorUtils::fromHslCompensated(hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::minGrayLightness());
+    darkGray_ = ColorUtils::fromHslCompensated(
+      hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::minGrayLightness());
     midColor_ = ColorUtils::fromHslCompensated(
-      hue, IdenticonStyle::colorSaturation(), (IdenticonStyle::minColorLightness() + IdenticonStyle::maxColorLightness()) / 2);
-    lightGray_ =
-      ColorUtils::fromHslCompensated(hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::maxGrayLightness());
-    lightColor_ =
-      ColorUtils::fromHslCompensated(hue, IdenticonStyle::colorSaturation(), IdenticonStyle::maxColorLightness());
-    darkColor_ =
-      ColorUtils::fromHslCompensated(hue, IdenticonStyle::colorSaturation(), IdenticonStyle::minColorLightness());
+      hue,
+      IdenticonStyle::colorSaturation(),
+      (IdenticonStyle::minColorLightness() + IdenticonStyle::maxColorLightness()) / 2);
+    lightGray_ = ColorUtils::fromHslCompensated(
+      hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::maxGrayLightness());
+    lightColor_ = ColorUtils::fromHslCompensated(
+      hue, IdenticonStyle::colorSaturation(), IdenticonStyle::maxColorLightness());
+    darkColor_ = ColorUtils::fromHslCompensated(
+      hue, IdenticonStyle::colorSaturation(), IdenticonStyle::minColorLightness());
 }
 
-QColor &
-ColorTheme::operator[](int index)
+QColor
+ColorTheme::operator[](int index) const
 {
     if (index == 0)
         return darkGray_;

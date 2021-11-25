@@ -35,7 +35,7 @@ IconGenerator::getCategories()
 }
 
 QList<shapes::Shape>
-IconGenerator::getShapes(ColorTheme &theme, QString &hash)
+IconGenerator::getShapes(const ColorTheme &theme, const QByteArray &hash)
 {
     QList<shapes::Shape> shapes;
     QList<int> usedColorThemeIndexes;
@@ -75,22 +75,14 @@ IconGenerator::getShapes(ColorTheme &theme, QString &hash)
 void
 IconGenerator::generate(Renderer &renderer, Rectangle &rect, QString &input)
 {
-    auto hue = getHue(input);
+    QByteArray hash = QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1);
+    auto hue        = getHue(hash);
 
     qDebug() << "hue" << hue;
     auto colorTheme = ColorTheme(hue);
-    QString hash =
-      QString(QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1).toHex());
 
     RenderBackground(renderer);
     RenderForeground(renderer, rect, colorTheme, hash);
 }
 
-uint32_t
-IconGenerator::hashQString(const QString &input)
-{
-    auto h = QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1);
-
-    return (h[0] << 24) ^ (h[1] << 16) ^ (h[2] << 8) ^ h[3];
-}
 } // namespace rendering

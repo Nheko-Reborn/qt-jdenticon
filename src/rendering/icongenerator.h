@@ -1,8 +1,8 @@
 #ifndef ICONGENERATOR_H
 #define ICONGENERATOR_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 #include <QtDebug>
 
 #include "../shapes/shape.h"
@@ -99,29 +99,22 @@ protected:
         }
     }
 
-    static uint32_t hashQString(const QString &input)
-    {
-        uint32_t hash = 0;
-
-        for (int i = 0; i < input.length(); i++) {
-            hash = input.at(i).digitValue() + ((hash << 5) - hash);
-        }
-
-        return hash;
-    }
+    static uint32_t hashQString(const QString &input);
 
     static qreal getHue(const QString &input)
     {
         // Create a color for the input
         auto hash = hashQString(input);
         // create a hue value based on the hash of the input.
-        auto userHue = hash % 360;
-        return userHue / 360.0;
+        // Adapted to make Nico blue
+        auto userHue = static_cast<double>(hash - static_cast<uint32_t>(0x60000000)) /
+                       std::numeric_limits<uint32_t>::max();
+        return userHue;
     }
 
     static char getOctet(QString &arr, const int index)
     {
-        char at =  arr.at(index).toLatin1();
+        char at     = arr.at(index).toLatin1();
         char decval = (at >= 'A') ? (at - 'A' + 10) : (at - '0');
         return decval;
     }

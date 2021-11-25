@@ -63,8 +63,8 @@ IconGenerator::getShapes(ColorTheme &theme, QString &hash)
         auto octet          = getOctet(hash, category.getShapeIndex());
         auto definitionSize = category.getDefinitions().size();
         qDebug() << "definitionSize " << definitionSize;
-        auto shape             = category.getDefinitions()[octet % definitionSize];
-        qDebug() << "Shape # " << (octet % definitionSize) ;
+        auto shape = category.getDefinitions()[octet % definitionSize];
+        qDebug() << "Shape # " << (octet % definitionSize);
         auto positions         = category.getPositions();
         shapes::Shape newShape = {shape, theme[colorThemeIndex], positions, startRotationIndex};
         shapes.append(newShape);
@@ -73,19 +73,24 @@ IconGenerator::getShapes(ColorTheme &theme, QString &hash)
 }
 
 void
-IconGenerator::generate(Renderer &renderer,
-                        Rectangle &rect,
-                        IdenticonStyle &style,
-                        QString &input)
+IconGenerator::generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QString &input)
 {
     auto hue = getHue(input);
 
     qDebug() << "hue" << hue;
     auto colorTheme = ColorTheme(hue, style);
-    QString hash = QString(QCryptographicHash::hash(input.toUtf8(),QCryptographicHash::Sha1).toHex());
+    QString hash =
+      QString(QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1).toHex());
 
     RenderBackground(renderer, rect, style, colorTheme, hash);
     RenderForeground(renderer, rect, style, colorTheme, hash);
 }
 
+uint32_t
+IconGenerator::hashQString(const QString &input)
+{
+    auto h = QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1);
+
+    return (h[0] << 24) ^ (h[1] << 16) ^ (h[2] << 8) ^ h[3];
+}
 } // namespace rendering

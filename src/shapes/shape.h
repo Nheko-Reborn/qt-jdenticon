@@ -19,7 +19,7 @@ private:
 
 public:
     Shape(void (*definition)(rendering::Renderer &renderer, int cell, int index),
-          QColor &color,
+          QColor color,
           QList<QPoint> &positions,
           int startRotationIndex);
     QColor getShapeColor();

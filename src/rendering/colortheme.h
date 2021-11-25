@@ -3,7 +3,6 @@
 
 #include <QColor>
 
-#include "../identiconstyle.h"
 #include "colorutils.h"
 
 namespace rendering {
@@ -19,9 +18,9 @@ private:
     QColor lightColor_;
 
 public:
-    ColorTheme(qreal hue, IdenticonStyle &style);
-    int count() { return 5; }
-    QColor &operator[](int index);
+    ColorTheme(qreal hue);
+    int count() const { return 5; }
+    QColor operator[](int index) const;
 };
 
 } // namespace rendering

@@ -3,15 +3,14 @@
 namespace shapes {
 
 Shape::Shape(void (*definition)(rendering::Renderer &, int cell, int index),
-             QColor &color,
+             QColor color,
              QList<QPoint> &positions,
              int startRotationIndex)
-{
-    definition_         = definition;
-    shapeColor_         = color;
-    positions_          = positions;
-    startRotationIndex_ = startRotationIndex;
-}
+  : shapeColor_(color)
+  , positions_(positions)
+  , startRotationIndex_(startRotationIndex)
+  , definition_(definition)
+{}
 
 QColor
 Shape::getShapeColor()

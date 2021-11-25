@@ -3,22 +3,22 @@
 #include <QCryptographicHash>
 namespace rendering {
 
-QList<QPoint> IconGenerator::shapeOne_({QPoint(1, 0),
-                                        QPoint(2, 0),
-                                        QPoint(2, 3),
-                                        QPoint(1, 3),
-                                        QPoint(0, 1),
-                                        QPoint(3, 1),
-                                        QPoint(3, 2),
-                                        QPoint(0, 2)});
-QList<QPoint> IconGenerator::shapeTwo_({{0, 0}, {3, 0}, {3, 3}, {0, 3}});
-QList<QPoint> IconGenerator::shapeThree_({{1, 1}, {2, 1}, {2, 2}, {1, 2}});
-QList<void (*)(rendering::Renderer &, int, int)> IconGenerator::centerShapes_ =
+static QList<QPoint> shapeOne_({QPoint(1, 0),
+                                QPoint(2, 0),
+                                QPoint(2, 3),
+                                QPoint(1, 3),
+                                QPoint(0, 1),
+                                QPoint(3, 1),
+                                QPoint(3, 2),
+                                QPoint(0, 2)});
+static QList<QPoint> shapeTwo_({{0, 0}, {3, 0}, {3, 3}, {0, 3}});
+static QList<QPoint> shapeThree_({{1, 1}, {2, 1}, {2, 2}, {1, 2}});
+static QList<void (*)(rendering::Renderer &, int, int)> centerShapes_ =
   shapes::ShapeDefinitions::CenterShapes();
-QList<void (*)(rendering::Renderer &, int, int)> IconGenerator::outerShapes_ =
+static QList<void (*)(rendering::Renderer &, int, int)> outerShapes_ =
   shapes::ShapeDefinitions::OuterShapes();
 
-QList<shapes::ShapeCategory> IconGenerator::defaultCategories_ = {
+static QList<shapes::ShapeCategory> defaultCategories_ = {
   // Sides
   shapes::ShapeCategory(8, 2, 3, shapeOne_, outerShapes_),
   // Corner
@@ -82,8 +82,8 @@ IconGenerator::generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &sty
     QString hash =
       QString(QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1).toHex());
 
-    RenderBackground(renderer, rect, style, colorTheme, hash);
-    RenderForeground(renderer, rect, style, colorTheme, hash);
+    RenderBackground(renderer, style);
+    RenderForeground(renderer, rect, colorTheme, hash);
 }
 
 uint32_t

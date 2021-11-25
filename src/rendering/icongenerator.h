@@ -13,18 +13,9 @@
 
 namespace rendering {
 
-class IconGenerator
+class IconGenerator final
 {
 private:
-    static QList<QPoint> shapeOne_;
-    static QList<QPoint> shapeTwo_;
-    static QList<QPoint> shapeThree_;
-    static QList<QPoint> shapeFour_;
-
-    static QList<void (*)(rendering::Renderer &, int, int)> outerShapes_;
-
-    static QList<void (*)(rendering::Renderer &, int, int)> centerShapes_;
-    static QList<shapes::ShapeCategory> defaultCategories_;
     static bool isDuplicate(QList<int> &source, int newValue, QList<int> &duplicateValues)
     {
         if (duplicateValues.contains(newValue)) {
@@ -39,21 +30,13 @@ private:
 
 protected:
     QList<shapes::ShapeCategory> getCategories();
-    virtual QList<shapes::Shape> getShapes(ColorTheme &theme, QString &hash);
-    virtual void RenderBackground(Renderer &renderer,
-                                  Rectangle rect,
-                                  IdenticonStyle &style,
-                                  ColorTheme &colorTheme,
-                                  QString &hash)
+    QList<shapes::Shape> getShapes(ColorTheme &theme, QString &hash);
+    void RenderBackground(Renderer &renderer, IdenticonStyle &style)
     {
-        Q_UNUSED(rect);
-        Q_UNUSED(style);
-        Q_UNUSED(colorTheme);
-        Q_UNUSED(hash);
         QColor backCol = style.backCol();
         renderer.setBackgroundColor(backCol);
     }
-    virtual Rectangle normalizeRectangle(Rectangle &rect)
+    Rectangle normalizeRectangle(Rectangle &rect)
     {
         auto size = qMin(rect.width(), rect.height());
 
@@ -63,13 +46,11 @@ protected:
         return Rectangle(
           rect.x() + (rect.width() - size) / 2, rect.y() + (rect.height() - size) / 2, size, size);
     }
-    virtual void RenderForeground(Renderer &renderer,
-                                  Rectangle &rect,
-                                  IdenticonStyle &style,
-                                  ColorTheme &colorTheme,
-                                  QString &hash)
+    void RenderForeground(Renderer &renderer,
+                          Rectangle &rect,
+                          ColorTheme &colorTheme,
+                          QString &hash)
     {
-        Q_UNUSED(style);
         // Ensure rect is quadratic and a multiple of the cell count
         auto normalizedRect = normalizeRectangle(rect);
         qDebug() << "cellCount" << cellCount();
@@ -121,9 +102,8 @@ protected:
 
 public:
     IconGenerator();
-    virtual int cellCount() { return 4; }
+    int cellCount() const { return 4; }
     void generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QString &hash);
-    virtual ~IconGenerator() = default;
 };
 
 } // namespace rendering

@@ -1,19 +1,9 @@
 #include "identicon.h"
 
-IdenticonStyle Identicon::defaultStyle_ = {};
-Identicon::Identicon(QString &hash, int size)
-{
-    size_ = size;
-    hash_ = hash;
-}
-
-Identicon
-Identicon::fromHash(QByteArray &hash, int size)
-{
-    QString str = QString(hash);
-    Identicon fromHash(str, size);
-    return fromHash;
-}
+Identicon::Identicon(const QString &hash, int size)
+  : hash_(hash)
+  , size_(size)
+{}
 
 QString
 Identicon::generateSvg(Identicon &icon, bool fragment)
@@ -28,7 +18,7 @@ rendering::Rectangle
 Identicon::getIconBounds()
 {
     // Round to nearest integer
-    auto padding = qFloor(defaultStyle_.padding() * size() + 0.5);
+    auto padding = qFloor(IdenticonStyle::padding() * size() + 0.5);
 
     return rendering::Rectangle(padding, padding, size() - padding * 2, size() - padding * 2);
 }
@@ -36,5 +26,5 @@ Identicon::getIconBounds()
 void
 Identicon::draw(rendering::Renderer &renderer, rendering::Rectangle &rect)
 {
-    iconGenerator_.generate(renderer, rect, defaultStyle_, hash_);
+    iconGenerator_.generate(renderer, rect, hash_);
 }

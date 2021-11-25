@@ -1,29 +1,24 @@
 #include <stdexcept>
 
 #include "colortheme.h"
+#include "../identiconstyle.h"
 
 #include <stdexcept>
 
 namespace rendering {
 
-ColorTheme::ColorTheme(qreal hue, IdenticonStyle &style)
+ColorTheme::ColorTheme(qreal hue)
 {
-    if (style.hues().size() > 0) {
-        // Multiply with 0.999 to change the range to [0, 1)
-        int hueIndex = qFloor(0.999 * hue * style.hues().size());
-        hue          = style.hues().at(hueIndex);
-    }
-
     darkGray_ =
-      ColorUtils::fromHslCompensated(hue, style.grayscaleSaturation(), style.minGrayLightness());
+      ColorUtils::fromHslCompensated(hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::minGrayLightness());
     midColor_ = ColorUtils::fromHslCompensated(
-      hue, style.colorSaturation(), (style.minColorLightness() + style.maxColorLightness()) / 2);
+      hue, IdenticonStyle::colorSaturation(), (IdenticonStyle::minColorLightness() + IdenticonStyle::maxColorLightness()) / 2);
     lightGray_ =
-      ColorUtils::fromHslCompensated(hue, style.grayscaleSaturation(), style.maxGrayLightness());
+      ColorUtils::fromHslCompensated(hue, IdenticonStyle::grayscaleSaturation(), IdenticonStyle::maxGrayLightness());
     lightColor_ =
-      ColorUtils::fromHslCompensated(hue, style.colorSaturation(), style.maxColorLightness());
+      ColorUtils::fromHslCompensated(hue, IdenticonStyle::colorSaturation(), IdenticonStyle::maxColorLightness());
     darkColor_ =
-      ColorUtils::fromHslCompensated(hue, style.colorSaturation(), style.minColorLightness());
+      ColorUtils::fromHslCompensated(hue, IdenticonStyle::colorSaturation(), IdenticonStyle::minColorLightness());
 }
 
 QColor &

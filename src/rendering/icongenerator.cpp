@@ -73,16 +73,16 @@ IconGenerator::getShapes(ColorTheme &theme, QString &hash)
 }
 
 void
-IconGenerator::generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QString &input)
+IconGenerator::generate(Renderer &renderer, Rectangle &rect, QString &input)
 {
     auto hue = getHue(input);
 
     qDebug() << "hue" << hue;
-    auto colorTheme = ColorTheme(hue, style);
+    auto colorTheme = ColorTheme(hue);
     QString hash =
       QString(QCryptographicHash::hash(input.toUtf8(), QCryptographicHash::Sha1).toHex());
 
-    RenderBackground(renderer, style);
+    RenderBackground(renderer);
     RenderForeground(renderer, rect, colorTheme, hash);
 }
 

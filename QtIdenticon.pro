@@ -47,7 +47,6 @@ HEADERS += src/identicon.h \
            src/jdenticonplugin.h \
            includes/jdenticoninterface.h
 SOURCES += src/identicon.cpp \
-           src/identiconstyle.cpp \
            src/qtidenticon.cpp \
            src/rendering/colortheme.cpp \
            src/rendering/colorutils.cpp \

@@ -31,10 +31,9 @@ private:
 protected:
     QList<shapes::ShapeCategory> getCategories();
     QList<shapes::Shape> getShapes(ColorTheme &theme, QString &hash);
-    void RenderBackground(Renderer &renderer, IdenticonStyle &style)
+    void RenderBackground(Renderer &renderer)
     {
-        QColor backCol = style.backCol();
-        renderer.setBackgroundColor(backCol);
+        renderer.setBackgroundColor(QColor(0,0,0,0));
     }
     Rectangle normalizeRectangle(Rectangle &rect)
     {
@@ -103,7 +102,7 @@ protected:
 public:
     IconGenerator();
     int cellCount() const { return 4; }
-    void generate(Renderer &renderer, Rectangle &rect, IdenticonStyle &style, QString &hash);
+    void generate(Renderer &renderer, Rectangle &rect, QString &hash);
 };
 
 } // namespace rendering

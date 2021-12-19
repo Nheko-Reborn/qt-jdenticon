@@ -8,4 +8,16 @@ generator.
 
 In order to generate new jdenticon's, the main function in qtidenticon.cpp must be modified.  The program does not yet support command line arguments that allow the input of the text to be jdenticon-ified.
 
+## How to build
+
+```
+mkdir build
+cd build/
+qmake ../QtIdenticon.pro
+make -j4
+```
+
+## Dependencies
+
+- Qt: Core and Gui
 

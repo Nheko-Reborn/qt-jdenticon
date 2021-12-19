@@ -10,7 +10,7 @@ uri = im.nheko.qtjdenticon
 
 INCLUDEPATH = includes
 INCLUDEPATH += .
-VERSION = 0.1.0
+VERSION = 0.3.0
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings

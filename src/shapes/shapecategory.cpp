@@ -5,8 +5,8 @@ namespace shapes {
 ShapeCategory::ShapeCategory(int colorIndex,
                              int shapeIndex,
                              int rotationIndex,
-                             QList<QPoint> &positions,
-                             QList<void (*)(rendering::Renderer &, int, int)> &definitions)
+                             const QVector<QPoint> &positions,
+                             const QVector<void (*)(rendering::Renderer &, int, int)> &definitions)
 {
     colorIndex_    = colorIndex;
     shapeIndex_    = shapeIndex;
@@ -16,31 +16,31 @@ ShapeCategory::ShapeCategory(int colorIndex,
 }
 
 int
-ShapeCategory::getShapeIndex()
+ShapeCategory::getShapeIndex() const
 {
     return shapeIndex_;
 }
 
 int
-ShapeCategory::getRotationIndex()
+ShapeCategory::getRotationIndex() const
 {
     return rotationIndex_;
 }
 
 int
-ShapeCategory::getColorIndex()
+ShapeCategory::getColorIndex() const
 {
     return colorIndex_;
 }
 
-QList<QPoint>
-ShapeCategory::getPositions()
+QVector<QPoint>
+ShapeCategory::getPositions() const
 {
     return positions_;
 }
 
-QList<void (*)(rendering::Renderer &, int, int)>
-ShapeCategory::getDefinitions()
+QVector<void (*)(rendering::Renderer &, int, int)>
+ShapeCategory::getDefinitions() const
 {
     return definitions_;
 }

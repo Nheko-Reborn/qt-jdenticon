@@ -4,7 +4,7 @@ namespace shapes {
 
 Shape::Shape(void (*definition)(rendering::Renderer &, int cell, int index),
              QColor color,
-             QList<QPoint> &positions,
+             QVector<QPoint> &positions,
              int startRotationIndex)
   : shapeColor_(color)
   , positions_(positions)
@@ -18,7 +18,7 @@ Shape::getShapeColor()
     return shapeColor_;
 }
 
-QList<QPoint>
+QVector<QPoint>
 Shape::getPositions()
 {
     return positions_;

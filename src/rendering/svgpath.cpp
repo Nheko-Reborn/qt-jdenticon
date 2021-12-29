@@ -5,7 +5,7 @@ namespace rendering {
 SvgPath::SvgPath() {}
 
 void
-SvgPath::addCircle(QPointF &location, qreal diameter, bool counterClockwise)
+SvgPath::addCircle(const QPointF &location, qreal diameter, bool counterClockwise)
 {
     auto sweepFlag      = counterClockwise ? '0' : '1';
     auto radius         = diameter / 2;
@@ -19,7 +19,7 @@ SvgPath::addCircle(QPointF &location, qreal diameter, bool counterClockwise)
 }
 
 void
-SvgPath::addPolygon(QList<QPointF> &points)
+SvgPath::addPolygon(const QVector<QPointF> &points)
 {
     dataString_.append("M" + QString::number(points.at(0).x()) + " " +
                        QString::number(points.at(0).y()));

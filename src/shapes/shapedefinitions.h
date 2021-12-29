@@ -1,7 +1,7 @@
 #ifndef SHAPEDEFINITIONS_H
 #define SHAPEDEFINITIONS_H
 
-#include <QList>
+#include <QVector>
 #include <QtDebug>
 #include <QtMath>
 
@@ -12,8 +12,8 @@ namespace shapes {
 class ShapeDefinitions
 {
 public:
-    static QList<void (*)(rendering::Renderer &, int, int)> OuterShapes();
-    static QList<void (*)(rendering::Renderer &, int, int)> CenterShapes();
+    static const QVector<void (*)(rendering::Renderer &, int, int)> &OuterShapes();
+    static const QVector<void (*)(rendering::Renderer &, int, int)> &CenterShapes();
 
     static void outerOne(rendering::Renderer &renderer, int cell, int index)
     {
@@ -45,12 +45,12 @@ public:
     {
         Q_UNUSED(index);
         qDebug() << "centerOne";
-        qreal k                = cell * 0.42;
-        QList<QPointF> polygon = {QPointF(0, 0),
-                                  QPointF(cell, 0),
-                                  QPointF(cell, cell - k * 2),
-                                  QPointF(cell - k, cell),
-                                  QPointF(0, cell)};
+        qreal k                  = cell * 0.42;
+        QVector<QPointF> polygon = {QPointF(0, 0),
+                                    QPointF(cell, 0),
+                                    QPointF(cell, cell - k * 2),
+                                    QPointF(cell - k, cell),
+                                    QPointF(0, cell)};
         renderer.addPolygon(polygon);
     }
     static void centerTwo(rendering::Renderer &renderer, int cell, int index)
@@ -106,9 +106,9 @@ public:
         }
 
         renderer.addRectangle(0, 0, cell, cell);
-        QList<QPointF> polygon = {QPointF(outer, outer),
-                                  QPointF(cell - inner, outer),
-                                  QPointF(outer + (cell - outer - inner) / 2, cell - inner)};
+        QVector<QPointF> polygon = {QPointF(outer, outer),
+                                    QPointF(cell - inner, outer),
+                                    QPointF(outer + (cell - outer - inner) / 2, cell - inner)};
         renderer.addPolygon(polygon, true);
     }
     static void centerSeven(rendering::Renderer &renderer, int cell, int index)
@@ -116,12 +116,12 @@ public:
         Q_UNUSED(index);
         qDebug() << "centerSeven";
 
-        QList<QPointF> polygon = {QPointF(0, 0),
-                                  QPointF(cell, 0),
-                                  QPointF(cell, cell * 0.7),
-                                  QPointF(cell * 0.4, cell * 0.4),
-                                  QPointF(cell * 0.7, cell),
-                                  QPointF(0, cell)};
+        QVector<QPointF> polygon = {QPointF(0, 0),
+                                    QPointF(cell, 0),
+                                    QPointF(cell, cell * 0.7),
+                                    QPointF(cell * 0.4, cell * 0.4),
+                                    QPointF(cell * 0.7, cell),
+                                    QPointF(0, cell)};
         renderer.addPolygon(polygon);
     }
     static void centerEight(rendering::Renderer &renderer, int cell, int index)
@@ -137,11 +137,11 @@ public:
         Q_UNUSED(index);
         qDebug() << "centerNine";
 
-        QList<QPointF> polygons = {QPointF(0, 0),
-                                   QPointF(cell, 0),
-                                   QPointF(cell, cell / 2),
-                                   QPointF(cell / 2, cell),
-                                   QPointF(0, cell)};
+        QVector<QPointF> polygons = {QPointF(0, 0),
+                                     QPointF(cell, 0),
+                                     QPointF(cell, cell / 2),
+                                     QPointF(cell / 2, cell),
+                                     QPointF(0, cell)};
         renderer.addPolygon(polygons);
     }
     static void centerTen(rendering::Renderer &renderer, int cell, int index)

@@ -4,7 +4,7 @@
 
 namespace rendering {
 
-QList<qreal> ColorUtils::lightnessCompensation_ = {0.55, 0.5, 0.5, 0.46, 0.6, 0.55, 0.55};
+QVector<qreal> ColorUtils::lightnessCompensation_ = {0.55, 0.5, 0.5, 0.46, 0.6, 0.55, 0.55};
 
 QColor
 ColorUtils::fromHslCompensated(qreal hue, qreal saturation, qreal lightness)

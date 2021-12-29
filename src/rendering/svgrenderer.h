@@ -3,10 +3,10 @@
 
 #include <QColor>
 #include <QHash>
-#include <QList>
 #include <QPointF>
 #include <QString>
 #include <QTextStream>
+#include <QVector>
 
 #include "renderer.h"
 #include "svgpath.h"
@@ -22,13 +22,13 @@ private:
     QColor backColor_;
 
 protected:
-    void addCircleNoTransform(QPointF &location, qreal diameter, bool counterClockwise);
-    void addPolygonNoTransform(QList<QPointF> &points);
+    void addCircleNoTransform(QPointF &location, qreal diameter, bool counterClockwise) override;
+    void addPolygonNoTransform(const QVector<QPointF> &points) override;
 
 public:
     SvgRenderer(int width, int height);
-    void setBackgroundColor(const QColor &color);
-    void beginShape(const QColor &color);
+    void setBackgroundColor(const QColor &color) override;
+    void beginShape(const QColor &color) override;
     void save(QTextStream &stream, bool fragment);
     QString toSvg(bool fragment);
     ~SvgRenderer()

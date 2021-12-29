@@ -1,8 +1,8 @@
 #ifndef ICONGENERATOR_H
 #define ICONGENERATOR_H
 
-#include <QList>
 #include <QString>
+#include <QVector>
 #include <QtDebug>
 
 #include "../shapes/shape.h"
@@ -16,7 +16,9 @@ namespace rendering {
 class IconGenerator final
 {
 private:
-    static bool isDuplicate(QList<int> &source, int newValue, QList<int> &duplicateValues)
+    static bool isDuplicate(const QVector<int> &source,
+                            int newValue,
+                            const QVector<int> &duplicateValues)
     {
         if (duplicateValues.contains(newValue)) {
             for (int i = 0; i < duplicateValues.size(); i++) {
@@ -29,8 +31,8 @@ private:
     }
 
 protected:
-    QList<shapes::ShapeCategory> getCategories();
-    QList<shapes::Shape> getShapes(const ColorTheme &theme, const QByteArray &hash);
+    const QVector<shapes::ShapeCategory> &getCategories();
+    QVector<shapes::Shape> getShapes(const ColorTheme &theme, const QByteArray &hash);
     void RenderBackground(Renderer &renderer) { renderer.setBackgroundColor(QColor(0, 0, 0, 0)); }
     Rectangle normalizeRectangle(Rectangle &rect)
     {

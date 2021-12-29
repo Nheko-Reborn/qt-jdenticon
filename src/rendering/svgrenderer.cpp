@@ -15,7 +15,7 @@ SvgRenderer::addCircleNoTransform(QPointF &location, qreal diameter, bool counte
 }
 
 void
-SvgRenderer::addPolygonNoTransform(QList<QPointF> &points)
+SvgRenderer::addPolygonNoTransform(const QVector<QPointF> &points)
 {
     path_->addPolygon(points);
 }
@@ -46,32 +46,36 @@ SvgRenderer::save(QTextStream &stream, bool fragment)
 QString
 SvgRenderer::toSvg(bool fragment)
 {
-    auto svg            = QList<QString>();
+    auto svg = QStringList();
+    svg.reserve(pathsByColor_.size() + 3);
     auto widthAsString  = QString::number(width_);
     auto heightAsString = QString::number(height_);
 
     if (!fragment) {
-        svg.append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + widthAsString +
-                   "\" height=\"" + heightAsString + "\" viewBox=\"0 0 " + widthAsString + " " +
-                   heightAsString + "\" preserveAspectRatio=\"xMidYMid meet\">");
+        svg.append(
+          QStringLiteral("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%1\" height=\"%2\" "
+                         "viewBox=\"0 0 %1 %2\" preserveAspectRatio=\"xMidYMid meet\">")
+            .arg(widthAsString, heightAsString));
     }
 
     if (backColor_.alpha() > 0) {
-        svg.append("<rect fill=\"" + backColor_.name() + "\" fill-opacity=\"" +
-                   QString::number(backColor_.alphaF()) + "\" x=\"0\" y=\"0\" width=\"" +
-                   widthAsString + "\" height=\"" + heightAsString + "\"/>");
+        svg.append(
+          QStringLiteral(
+            "<rect fill=\"%2\" fill-opacity=\"%1\" x=\"0\" y=\"0\" width=\"%3\" height=\"%4\"/>")
+            .arg(backColor_.alphaF())
+            .arg(backColor_.name(), widthAsString, heightAsString));
     }
 
     for (auto pair : pathsByColor_.keys()) {
-        svg.append("<path fill=\"" + pair + "\" d=\"" + pathsByColor_.value(pair)->toString() +
-                   "\"/>");
+        svg.append(QStringLiteral("<path fill=\"%1\" d=\"%2\"/>")
+                     .arg(pair, pathsByColor_.value(pair)->toString()));
     }
 
     if (!fragment) {
-        svg.append("</svg>");
+        svg.append(QStringLiteral("</svg>"));
     }
 
-    return QStringList(svg).join("");
+    return QStringList(svg).join(QStringLiteral(""));
 }
 
 } // namespace rendering

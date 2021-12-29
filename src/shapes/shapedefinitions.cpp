@@ -4,10 +4,10 @@
 
 namespace shapes {
 
-QList<void (*)(rendering::Renderer &, int, int)>
+const QVector<void (*)(rendering::Renderer &, int, int)> &
 ShapeDefinitions::CenterShapes()
 {
-    return QList<void (*)(rendering::Renderer &, int, int)>{
+    static QVector<void (*)(rendering::Renderer &, int, int)> v{
       &ShapeDefinitions::centerOne,
       &ShapeDefinitions::centerTwo,
       &ShapeDefinitions::centerThree,
@@ -23,16 +23,18 @@ ShapeDefinitions::CenterShapes()
       &ShapeDefinitions::centerThirteen,
       &ShapeDefinitions::centerFourteen,
     };
+    return v;
 }
 
-QList<void (*)(rendering::Renderer &, int, int)>
+const QVector<void (*)(rendering::Renderer &, int, int)> &
 ShapeDefinitions::OuterShapes()
 {
-    return QList<void (*)(rendering::Renderer &, int, int)>{
+    static QVector<void (*)(rendering::Renderer &, int, int)> v{
       &ShapeDefinitions::outerOne,
       &ShapeDefinitions::outerTwo,
       &ShapeDefinitions::outerThree,
       &ShapeDefinitions::outerFour,
     };
+    return v;
 }
 }

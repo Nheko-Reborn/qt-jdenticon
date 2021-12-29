@@ -1,7 +1,7 @@
 #ifndef SHAPECATEGORY_H
 #define SHAPECATEGORY_H
 
-#include <QList>
+#include <QVector>
 
 #include "../rendering/renderer.h"
 
@@ -13,24 +13,24 @@ private:
     int colorIndex_;
     int shapeIndex_;
     int rotationIndex_;
-    QList<QPoint> positions_;
-    QList<void (*)(rendering::Renderer &, int, int)> definitions_;
+    QVector<QPoint> positions_;
+    QVector<void (*)(rendering::Renderer &, int, int)> definitions_;
 
 public:
     ShapeCategory(int colorIndex,
                   int shapeIndex,
                   int rotationIndex,
-                  QList<QPoint> &positions,
-                  QList<void (*)(rendering::Renderer &, int, int)> &);
-    int getColorIndex();
-    int getShapeIndex();
-    int getRotationIndex();
-    QList<void (*)(rendering::Renderer &, int, int)> getDefinitions();
-    QList<QPoint> getPositions();
+                  const QVector<QPoint> &positions,
+                  const QVector<void (*)(rendering::Renderer &, int, int)> &);
+    int getColorIndex() const;
+    int getShapeIndex() const;
+    int getRotationIndex() const;
+    QVector<void (*)(rendering::Renderer &, int, int)> getDefinitions() const;
+    QVector<QPoint> getPositions() const;
     void setColorIndex(int colIndex) { colorIndex_ = colIndex; }
     void setShapeIndex(int shapeIndex) { shapeIndex_ = shapeIndex; }
     void setRotationIndex(int rotationIndex) { rotationIndex_ = rotationIndex; }
-    void setDefinitions(QList<void (*)(rendering::Renderer &, int, int)> definitions());
+    void setDefinitions(const QVector<void (*)(rendering::Renderer &, int, int)> &definitions);
 };
 
 } // namespace shapes

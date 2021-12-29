@@ -3,22 +3,22 @@
 #include <QCryptographicHash>
 namespace rendering {
 
-static QList<QPoint> shapeOne_({QPoint(1, 0),
-                                QPoint(2, 0),
-                                QPoint(2, 3),
-                                QPoint(1, 3),
-                                QPoint(0, 1),
-                                QPoint(3, 1),
-                                QPoint(3, 2),
-                                QPoint(0, 2)});
-static QList<QPoint> shapeTwo_({{0, 0}, {3, 0}, {3, 3}, {0, 3}});
-static QList<QPoint> shapeThree_({{1, 1}, {2, 1}, {2, 2}, {1, 2}});
-static QList<void (*)(rendering::Renderer &, int, int)> centerShapes_ =
+static QVector<QPoint> shapeOne_({QPoint(1, 0),
+                                  QPoint(2, 0),
+                                  QPoint(2, 3),
+                                  QPoint(1, 3),
+                                  QPoint(0, 1),
+                                  QPoint(3, 1),
+                                  QPoint(3, 2),
+                                  QPoint(0, 2)});
+static QVector<QPoint> shapeTwo_({{0, 0}, {3, 0}, {3, 3}, {0, 3}});
+static QVector<QPoint> shapeThree_({{1, 1}, {2, 1}, {2, 2}, {1, 2}});
+static QVector<void (*)(rendering::Renderer &, int, int)> centerShapes_ =
   shapes::ShapeDefinitions::CenterShapes();
-static QList<void (*)(rendering::Renderer &, int, int)> outerShapes_ =
+static QVector<void (*)(rendering::Renderer &, int, int)> outerShapes_ =
   shapes::ShapeDefinitions::OuterShapes();
 
-static QList<shapes::ShapeCategory> defaultCategories_ = {
+static QVector<shapes::ShapeCategory> defaultCategories_ = {
   // Sides
   shapes::ShapeCategory(8, 2, 3, shapeOne_, outerShapes_),
   // Corner
@@ -28,24 +28,27 @@ static QList<shapes::ShapeCategory> defaultCategories_ = {
 
 IconGenerator::IconGenerator() {}
 
-QList<shapes::ShapeCategory>
+const QVector<shapes::ShapeCategory> &
 IconGenerator::getCategories()
 {
     return defaultCategories_;
 }
 
-QList<shapes::Shape>
+QVector<shapes::Shape>
 IconGenerator::getShapes(const ColorTheme &theme, const QByteArray &hash)
 {
-    QList<shapes::Shape> shapes;
-    QList<int> usedColorThemeIndexes;
+    const auto &categories = getCategories();
+    QVector<shapes::Shape> shapes;
+    QVector<int> usedColorThemeIndexes;
+    shapes.reserve(categories.size());
+    usedColorThemeIndexes.reserve(categories.size());
 
-    for (auto category : getCategories()) {
+    for (const auto &category : qAsConst(categories)) {
         qDebug() << "themeCount " << theme.count();
         auto colorThemeIndex = getOctet(hash, category.getColorIndex()) % theme.count();
 
-        QList<int> dupsOne = {0, 4};
-        QList<int> dupsTwo = {2, 3};
+        QVector<int> dupsOne = {0, 4};
+        QVector<int> dupsTwo = {2, 3};
         if (isDuplicate(usedColorThemeIndexes,
                         colorThemeIndex,
                         dupsOne) || // Disallow dark gray and dark color combo

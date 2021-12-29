@@ -1,21 +1,22 @@
 #ifndef SVGPATH_H
 #define SVGPATH_H
 
-#include <QList>
 #include <QPointF>
 #include <QString>
+#include <QStringList>
+#include <QVector>
 
 namespace rendering {
 
 class SvgPath
 {
 private:
-    QList<QString> dataString_;
+    QStringList dataString_;
 
 public:
     SvgPath();
-    void addCircle(QPointF &location, qreal diameter, bool counterClockwise);
-    void addPolygon(QList<QPointF> &points);
+    void addCircle(const QPointF &location, qreal diameter, bool counterClockwise);
+    void addPolygon(const QVector<QPointF> &points);
     QString toString() const;
 };
 

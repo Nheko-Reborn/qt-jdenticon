@@ -33,16 +33,17 @@ class Renderer
 {
 private:
     Transform transform_ = Transform::empty();
-    void addPolygonCore(QList<QPointF> &points, bool invert)
+    void addPolygonCore(const QVector<QPointF> &points, bool invert)
     {
-        if (invert) {
-            std::reverse(std::begin(points), std::end(points));
-        }
-
-        QList<QPointF> transformedPoints;
+        QVector<QPointF> transformedPoints;
+        transformedPoints.reserve(points.size());
         for (QPointF point : points) {
             auto transPoint = transform_.TransformPoint(point.x(), point.y());
             transformedPoints.append(transPoint);
+        }
+
+        if (invert) {
+            std::reverse(std::begin(transformedPoints), std::end(transformedPoints));
         }
 
         addPolygonNoTransform(transformedPoints);
@@ -51,30 +52,29 @@ private:
 protected:
     virtual void addCircleNoTransform(QPointF &location,
                                       qreal diameter,
-                                      bool counterClockwise = false) = 0;
-    virtual void addPolygonNoTransform(QList<QPointF> &points)       = 0;
+                                      bool counterClockwise = false)   = 0;
+    virtual void addPolygonNoTransform(const QVector<QPointF> &points) = 0;
 
 public:
     Renderer()          = default;
     virtual ~Renderer() = default;
     Transform getTransform() { return transform_; }
-    void setTransform(Transform &value) { transform_ = value; }
+    void setTransform(const Transform &value) { transform_ = value; }
     void addCircle(qreal x, qreal y, qreal size, bool invert = false)
     {
         auto northWest = transform_.TransformPoint(x, y, size, size);
         addCircleNoTransform(northWest, size, invert);
     }
-    void addPolygon(QList<QPointF> &points, bool invert = false)
+    void addPolygon(const QVector<QPointF> &points, bool invert = false)
     {
-        QList<QPointF> pointsClone = points;
-        addPolygonCore(pointsClone, invert);
+        addPolygonCore(points, invert);
     }
     void addRectangle(qreal x, qreal y, qreal width, qreal height, bool invert = false)
     {
-        QList<QPointF> points = {QPointF(x, y),
-                                 QPointF(x + width, y),
-                                 QPointF(x + width, y + height),
-                                 QPointF(x, y + height)};
+        QVector<QPointF> points = {QPointF(x, y),
+                                   QPointF(x + width, y),
+                                   QPointF(x + width, y + height),
+                                   QPointF(x, y + height)};
         addPolygonCore(points, invert);
     }
     void addTriangle(qreal x,
@@ -84,10 +84,10 @@ public:
                      TriangleDirection direction,
                      bool invert = false)
     {
-        QList<QPointF> points = {QPointF(x + width, y),
-                                 QPointF(x + width, y + height),
-                                 QPointF(x, y + height),
-                                 QPointF(x, y)};
+        QVector<QPointF> points = {QPointF(x + width, y),
+                                   QPointF(x + width, y + height),
+                                   QPointF(x, y + height),
+                                   QPointF(x, y)};
 
         points.removeAt(static_cast<int>(direction));
 
@@ -95,10 +95,10 @@ public:
     }
     void addRhombus(qreal x, qreal y, qreal width, qreal height, bool invert = false)
     {
-        QList<QPointF> points = {QPointF(x + width / 2, y),
-                                 QPointF(x + width, y + height / 2),
-                                 QPointF(x + width / 2, y + height),
-                                 QPointF(x, y + height / 2)};
+        QVector<QPointF> points = {QPointF(x + width / 2, y),
+                                   QPointF(x + width, y + height / 2),
+                                   QPointF(x + width / 2, y + height),
+                                   QPointF(x, y + height / 2)};
         addPolygonCore(points, invert);
     }
     virtual void setBackgroundColor(const QColor &color) = 0;

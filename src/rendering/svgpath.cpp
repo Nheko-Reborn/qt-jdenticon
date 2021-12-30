@@ -20,8 +20,8 @@ struct detect<T, Op, void_t<Op<T>>> : std::true_type
 
 // Archetypal expression for assignment operation.
 template<typename T>
-using to_chars_test = decltype(std::to_chars(std::declval<const char *>(),
-                                             std::declval<const char *>(),
+using to_chars_test = decltype(std::to_chars(std::declval<char *>(),
+                                             std::declval<char *>(),
                                              std::declval<T>()));
 
 // Trait corresponding to that archetype.
@@ -31,13 +31,13 @@ using is_to_chars_avaiable = detect<T, to_chars_test>;
 
 static const auto formatNumber = [](auto number, std::array<char, 16> &buf) {
     if constexpr (is_to_chars_avaiable<decltype(number)>()) {
-        if (auto [ptr, ec] = std::to_chars(buf.data(), buf.data() + buf.size(), number);
+        if (auto [ptr, ec] = std::to_chars(buf.data(), buf.data() + buf.size(), number, std::chars_format::fixed, 1);
             ec == std::errc())
             return QLatin1String(buf.data(), ptr);
         else
             return QLatin1String();
     } else {
-        if (auto sz = snprintf(buf.data(), buf.size(), "%f", number); sz > 0)
+        if (auto sz = snprintf(buf.data(), buf.size(), "%.1f", number); sz > 0)
             return QLatin1String(buf.data(), buf.data() + sz);
         else
             return QLatin1String();

@@ -1,30 +1,18 @@
 #include "identicon.h"
 
-Identicon::Identicon(const QString &hash, int size)
-  : hash_(hash)
-  , size_(size)
-{}
-
-QString
-Identicon::generateSvg(Identicon &icon, bool fragment)
-{
-    auto iconBounds = icon.getIconBounds();
-    auto renderer   = rendering::SvgRenderer(icon.size(), icon.size());
-    icon.draw(renderer, iconBounds);
-    return renderer.toSvg(fragment);
-}
-
-rendering::Rectangle
-Identicon::getIconBounds()
+static rendering::Rectangle
+iconBounds(int size)
 {
     // Round to nearest integer
-    auto padding = qFloor(IdenticonStyle::padding() * size() + 0.5);
+    auto padding = qFloor(IdenticonStyle::padding() * size + 0.5);
 
-    return rendering::Rectangle(padding, padding, size() - padding * 2, size() - padding * 2);
+    return rendering::Rectangle(padding, padding, size - padding * 2, size - padding * 2);
 }
 
-void
-Identicon::draw(rendering::Renderer &renderer, rendering::Rectangle &rect)
+QString
+Identicon::generateSvg(const QString &hash_, int size, bool fragment)
 {
-    iconGenerator_.generate(renderer, rect, hash_);
+    auto renderer = rendering::SvgRenderer(size, size);
+    rendering::IconGenerator{}.generate(renderer, iconBounds(size), hash_);
+    return renderer.toSvg(fragment);
 }

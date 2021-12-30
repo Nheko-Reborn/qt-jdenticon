@@ -34,7 +34,7 @@ protected:
     const QVector<shapes::ShapeCategory> &getCategories();
     QVector<shapes::Shape> getShapes(const ColorTheme &theme, const QByteArray &hash);
     void RenderBackground(Renderer &renderer) { renderer.setBackgroundColor(QColor(0, 0, 0, 0)); }
-    Rectangle normalizeRectangle(Rectangle &rect)
+    Rectangle normalizeRectangle(const Rectangle &rect)
     {
         auto size = qMin(rect.width(), rect.height());
 
@@ -45,7 +45,7 @@ protected:
           rect.x() + (rect.width() - size) / 2, rect.y() + (rect.height() - size) / 2, size, size);
     }
     void RenderForeground(Renderer &renderer,
-                          Rectangle &rect,
+                          const Rectangle &rect,
                           const ColorTheme &colorTheme,
                           const QByteArray &hash)
     {
@@ -56,7 +56,7 @@ protected:
         auto cellSize = normalizedRect.width() / cellCount();
 
         auto shapes = getShapes(colorTheme, hash);
-        for (auto shape : shapes) {
+        for (const auto &shape : qAsConst(shapes)) {
             auto rotation = shape.getStartRotationIndex();
 
             QColor shapeColor = shape.getShapeColor();
@@ -101,9 +101,9 @@ protected:
     }
 
 public:
-    IconGenerator();
+    IconGenerator() = default;
     int cellCount() const { return 4; }
-    void generate(Renderer &renderer, Rectangle &rect, QString &hash);
+    void generate(Renderer &renderer, const Rectangle &rect, const QString &hash);
 };
 
 } // namespace rendering

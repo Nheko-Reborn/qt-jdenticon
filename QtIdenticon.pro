@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = lib
-CONFIG += plugin c++11
+CONFIG += plugin c++17
 TARGET = qtjdenticon
 TARGET = $$qtLibraryTarget($$TARGET)
 uri = im.nheko.qtjdenticon

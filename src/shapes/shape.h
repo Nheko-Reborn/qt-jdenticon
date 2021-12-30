@@ -20,12 +20,12 @@ private:
 public:
     Shape(void (*definition)(rendering::Renderer &renderer, int cell, int index),
           QColor color,
-          QVector<QPoint> &positions,
+          QVector<QPoint> positions,
           int startRotationIndex);
-    QColor getShapeColor();
-    QVector<QPoint> getPositions();
-    int getStartRotationIndex();
-    void (*getDefinition())(rendering::Renderer &, int, int) { return definition_; }
+    QColor getShapeColor() const;
+    const QVector<QPoint> &getPositions() const;
+    int getStartRotationIndex() const;
+    void (*getDefinition() const)(rendering::Renderer &, int, int) { return definition_; }
 };
 
 } // namespace shapes

@@ -11,11 +11,10 @@ main(int argc, char *argv[])
     QList<QString> hashes = {
       "@red_sky:ocean.joedonofry.com",
     };
-    for (QString hash : hashes) {
+    for (const QString &hash : qAsConst(hashes)) {
         QByteArray hashArr = QByteArray::fromStdString(hash.toStdString());
-        Identicon test(hash, 256);
         qInfo() << hash;
-        qInfo() << test.generateSvg(test, false);
+        qInfo() << Identicon::generateSvg(hash, 256, false);
     }
     return 0;
     // return a.exec();

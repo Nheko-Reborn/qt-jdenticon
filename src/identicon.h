@@ -10,18 +10,8 @@
 
 class Identicon
 {
-private:
-    QString hash_;
-    int size_;
-    rendering::IconGenerator iconGenerator_;
-    IdenticonStyle style_;
-
 public:
-    Identicon(const QString &hash, int size);
-    int size() { return size_; }
-    rendering::Rectangle getIconBounds();
-    static QString generateSvg(Identicon &identicon, bool fragment);
-    void draw(rendering::Renderer &renderer, rendering::Rectangle &rect);
+    static QString generateSvg(const QString &hash, int size, bool fragment);
 };
 
 #endif // IDENTICON_H

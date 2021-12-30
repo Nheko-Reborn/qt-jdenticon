@@ -3,7 +3,6 @@
 
 #include <QPointF>
 #include <QString>
-#include <QStringList>
 #include <QVector>
 
 namespace rendering {
@@ -11,13 +10,13 @@ namespace rendering {
 class SvgPath
 {
 private:
-    QStringList dataString_;
+    QString dataString_;
 
 public:
-    SvgPath();
+    SvgPath() = default;
     void addCircle(const QPointF &location, qreal diameter, bool counterClockwise);
     void addPolygon(const QVector<QPointF> &points);
-    QString toString() const;
+    const QString &toString() const;
 };
 
 } // namespace rendering

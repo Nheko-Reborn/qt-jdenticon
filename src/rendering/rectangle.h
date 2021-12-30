@@ -13,10 +13,10 @@ private:
 
 public:
     Rectangle(int x, int y, int width, int height);
-    int x() { return x_; }
-    int y() { return y_; }
-    int width() { return width_; }
-    int height() { return height_; }
+    int x() const { return x_; }
+    int y() const { return y_; }
+    int width() const { return width_; }
+    int height() const { return height_; }
 };
 
 } // namespace rendering

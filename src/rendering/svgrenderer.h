@@ -2,7 +2,7 @@
 #define SVGRENDERER_H
 
 #include <QColor>
-#include <QHash>
+#include <QMap>
 #include <QPointF>
 #include <QString>
 #include <QTextStream>
@@ -16,7 +16,7 @@ namespace rendering {
 class SvgRenderer : public Renderer
 {
 private:
-    QHash<QString, SvgPath *> pathsByColor_;
+    QMap<QString, SvgPath *> pathsByColor_;
     SvgPath *path_;
     int width_, height_;
     QColor backColor_;

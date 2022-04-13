@@ -13,8 +13,9 @@ main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     QCommandLineParser parser;
-    parser.setApplicationDescription("Generates SVGs from strings. For each input, the output is:\n"
-                                     "input<newline>SVG<newline>");
+    parser.setApplicationDescription(
+      "Generates SVGs from strings (supplied via command line arguments or taken from stdin). For "
+      "each input, the output is:\ninput<newline>SVG<newline>");
     parser.addHelpOption();
     parser.addOption(
       {{"i", "input"}, "Input to feed the generator, can appear multiple times.", "string"});

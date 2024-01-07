@@ -35,7 +35,7 @@ IconGenerator::getShapes(const ColorTheme &theme, const QByteArray &hash)
     shapes.reserve(defaultCategories_.size());
     usedColorThemeIndexes.reserve(defaultCategories_.size());
 
-    for (const auto &category : qAsConst(defaultCategories_)) {
+    for (const auto &category : std::as_const(defaultCategories_)) {
         qDebug() << "themeCount " << theme.count();
         auto colorThemeIndex = getOctet(hash, category.getColorIndex()) % theme.count();
 

@@ -56,7 +56,7 @@ protected:
         auto cellSize = normalizedRect.width() / cellCount();
 
         auto shapes = getShapes(colorTheme, hash);
-        for (const auto &shape : qAsConst(shapes)) {
+        for (const auto &shape : std::as_const(shapes)) {
             auto rotation = shape.getStartRotationIndex();
 
             QColor shapeColor = shape.getShapeColor();

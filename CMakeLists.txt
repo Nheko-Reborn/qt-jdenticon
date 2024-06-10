@@ -51,6 +51,8 @@ target_sources(qtjdenticon PRIVATE
     src/jdenticonplugin.cpp
 )
 
+target_compile_definitions(qtjdenticon PRIVATE QT_NO_DEBUG_OUTPUT)
+
 target_include_directories(qtjdenticon PRIVATE includes)
 
 # See KdeInstallDirs for the QT_PLUGIN_PATH lookup logic
